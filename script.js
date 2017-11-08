@@ -77,6 +77,7 @@ recognition.onend = function() {
   if (transcript !== 'stop') {
     recognition.start();
   } else {
+    console.log('Recognition stopped');
     transcript = null;
   }
 }
