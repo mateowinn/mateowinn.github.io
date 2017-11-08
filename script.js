@@ -40,6 +40,7 @@ recognition.onstart = function() {
   console.log("Recognition started");
 };
 
+var transcript;
 recognition.onresult = function(event) {
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
   // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
@@ -51,7 +52,7 @@ recognition.onresult = function(event) {
   // We then return the transcript property of the SpeechRecognitionAlternative object
 
   var last = event.results.length - 1;
-  var transcript = event.results[last][0].transcript.trim();
+  transcript = event.results[last][0].transcript.trim();
   console.log('Result:', transcript);
   switch (transcript) {
     case 'stop':
@@ -73,7 +74,11 @@ recognition.onresult = function(event) {
 }
 
 recognition.onend = function() {
-  recognition.start();
+  if (transcript !== 'stop') {
+    recognition.start();
+  } else {
+    transcript = null;
+  }
 }
 
 recognition.onnomatch = function(event) {
