@@ -9,7 +9,7 @@ var recognition = new SpeechRecognition();
 var speechRecognitionList = new SpeechGrammarList();
 speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
-recognition.continuous = true;
+// recognition.continuous = true;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
@@ -46,10 +46,11 @@ recognition.onresult = function(event) {
   diagnostic.textContent = 'Result received: ' + color + '.';
   bg.style.backgroundColor = color;
   console.log('Confidence: ' + event.results[0][0].confidence);
+  recognition.start();
 }
 
 recognition.onspeechend = function() {
-  // recognition.stop();
+  recognition.stop();
 }
 
 recognition.onnomatch = function(event) {
