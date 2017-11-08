@@ -54,6 +54,9 @@ recognition.onresult = function(event) {
   var transcript = event.results[last][0].transcript.trim();
   console.log('Result:', transcript);
   switch (transcript) {
+    case 'stop':
+      recognition.stop();
+      return;
     case 'up':
     case 'down':
     case 'left':
