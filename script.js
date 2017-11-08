@@ -106,7 +106,7 @@ function setPath(val) {
 
 new Vue({
   el: '#mover-container',
-  template: '<div id="mover" :style="styles"><span>Moving {{state.direction}}</span></div>',
+  template: '<div id="mover" :style="styles"><span>Moved {{state.direction}}</span></div>',
   data() {
     return {
       state

@@ -37,10 +37,10 @@ ul {
 
 #mover {
   position: fixed;
-  bottom: 50vh;
-  left: 50vh;
-  /*height: 50px;*/
-  /*width: 50px;*/
+  height: 50px;
+  width: 75px;
   display: block;
   color: black;
+  text-align: center;
+  padding: 10px
 }
