@@ -33,7 +33,7 @@ var state = {
 };
 document.body.onclick = function() {
   recognition.start();
-  console.log('Ready to receive a color command.');
+  console.log('Ready to receive a command.');
 }
 
 recognition.onstart = function() {
@@ -65,7 +65,7 @@ recognition.onresult = function(event) {
   }
 
   diagnostic.textContent = 'Result received: ' + state.color + '.';
-  bg.style.backgroundColor = state.color;
+  // bg.style.backgroundColor = state.color;
   console.log('Confidence: ' + event.results[0][0].confidence);
 }
 
@@ -91,7 +91,7 @@ function setPath(val) {
       state.bottom = state.bottom - 0.1;
       if (state.bottom < 0) state.bottom = 0;
       break;
-    case 'left':
+    case 'right':
       state.left = state.left + 0.1;
       if (state.left > 1) state.left = 1;
       break;
