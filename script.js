@@ -50,9 +50,9 @@ recognition.onresult = function(event) {
   // The [0] returns the SpeechRecognitionAlternative at position 0.
   // We then return the transcript property of the SpeechRecognitionAlternative object
 
-  console.log('Event results:', event.results);
   var last = event.results.length - 1;
   var transcript = event.results[last][0].transcript.trim();
+  console.log('Result:', transcript);
   switch (transcript) {
     case 'up':
     case 'down':
@@ -81,7 +81,28 @@ recognition.onerror = function(event) {
   diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
 }
 
-
+function setPath(val) {
+  switch (val) {
+    case 'up':
+      state.bottom = state.bottom + 0.1;
+      if (state.bottom > 1) state.bottom = 1;
+      break;
+    case 'down':
+      state.bottom = state.bottom - 0.1;
+      if (state.bottom < 0) state.bottom = 0;
+      break;
+    case 'left':
+      state.left = state.left + 0.1;
+      if (state.left > 1) state.left = 1;
+      break;
+    case 'left':
+      state.left = state.left - 0.1;
+      if (state.left < 0) state.left = 0;
+      break;
+    default:
+      break;
+  }
+}
 
 new Vue({
   el: '#mover-container',
@@ -99,26 +120,7 @@ new Vue({
   watch: {
     'state.direction': function(newVal, oldVal) {
       if (oldVal !== newVal) {
-        switch (newVal) {
-          case 'up':
-            state.bottom = state.bottom + 0.1;
-            if (state.bottom > 1) state.bottom = 1;
-            break;
-          case 'down':
-            state.bottom = state.bottom - 0.1;
-            if (state.bottom < 0) state.bottom = 0;
-            break;
-          case 'left':
-            state.left = state.left + 0.1;
-            if (state.left > 1) state.left = 1;
-            break;
-          case 'left':
-            state.left = state.left - 0.1;
-            if (state.left < 0) state.left = 0;
-            break;
-          default:
-            break;
-        }
+        setPath(newVal);
       }
     }
   }
