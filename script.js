@@ -11,7 +11,7 @@ speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
 recognition.continuous = true;
 recognition.lang = 'en-US';
-recognition.interimResults = false;
+recognition.interimResults = true;
 recognition.maxAlternatives = 1;
 
 var diagnostic = document.querySelector('.output');
@@ -30,6 +30,10 @@ document.body.onclick = function() {
   console.log('Ready to receive a color command.');
 }
 
+recognition.onstart = function() {
+  console.log("Recognition started");
+};
+
 recognition.onresult = function(event) {
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
   // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
@@ -40,18 +44,18 @@ recognition.onresult = function(event) {
   // The [0] returns the SpeechRecognitionAlternative at position 0.
   // We then return the transcript property of the SpeechRecognitionAlternative object
 
+  console.log('Event results:', event.results);
   var last = event.results.length - 1;
   var color = event.results[last][0].transcript;
 
   diagnostic.textContent = 'Result received: ' + color + '.';
   bg.style.backgroundColor = color;
   console.log('Confidence: ' + event.results[0][0].confidence);
-  // recognition.start();
 }
 
-// recognition.onspeechend = function() {
-//   recognition.stop();
-// }
+recognition.onend = function() {
+  recognition.start();
+}
 
 recognition.onnomatch = function(event) {
   diagnostic.textContent = "I didn't recognise that color.";
