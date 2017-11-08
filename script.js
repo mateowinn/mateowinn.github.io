@@ -52,7 +52,7 @@ recognition.onresult = function(event) {
 
   console.log('Event results:', event.results);
   var last = event.results.length - 1;
-  var transcript = event.results[last][0].transcript;
+  var transcript = event.results[last][0].transcript.trim();
   switch (transcript) {
     case 'up':
     case 'down':
